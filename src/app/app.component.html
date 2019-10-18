@@ -1,21 +1,154 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-12">
+
+            <h3>Employee Form</h3>
+            <!--<form #form="ngForm" (submit)="submitForm(form)">-->
+            <!--<div class="form-group">-->
+            <!--<label for="firstName">First Name:</label>-->
+            <!--<input #firstNameVar='ngModel' pattern="^Q.*" required id="firstName" class="form-control"-->
+            <!--[class.is-invalid]="firstNameVar.invalid && firstNameVar.dirty" type="text"-->
+            <!--placeholder="Name" name="firstName" ngModel>-->
+            <!--<div *ngIf="firstNameVar.invalid && firstNameVar.dirty" class="invalid-feedback">-->
+            <!--First name is required-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-group">-->
+            <!--<label for="lastName">Last Name:</label>-->
+            <!--<input #lastNameVar='ngModel' required id="lastName" class="form-control" type="text"-->
+            <!--placeholder="Name" name="lastName" ngModel>-->
+
+            <!--<div *ngIf="firstNameVar.invalid && firstNameVar.dirty" class="invalid-feedback">-->
+            <!--Last name is required-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-check">-->
+            <!--<input type="checkbox" class="form-check-input" id="exampleCheck1" name="is-full-time" ngModel>-->
+            <!--<label class="form-check-label" for="exampleCheck1">Full time Employee</label>-->
+            <!--</div>-->
+
+            <!--<label>Payment type</label>-->
+            <!--<div class="form-check">-->
+            <!--<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="W2"-->
+            <!--checked>-->
+            <!--<label class="form-check-label" for="exampleRadios1">-->
+            <!--W2-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-check">-->
+            <!--<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="1099">-->
+            <!--<label class="form-check-label" for="exampleRadios2">-->
+            <!--1099-->
+            <!--</label>-->
+            <!--</div>-->
+
+            <!--<div class="form-group">-->
+            <!--<label for="exampleFormControlSelect1">Primary language</label>-->
+            <!--<select class="form-control" id="exampleFormControlSelect1" #primaryLanguage name="primaryLanguage"-->
+                    <!--[(ngModel)]="model.primaryLanguage"-->
+                    <!--[class.is-invalid]="hasPrimaryLanguageErr"-->
+                    <!--(blur)="validatePrimaryLang(primaryLanguage.value)"-->
+                    <!--(change)="validatePrimaryLang(primaryLanguage.value)">-->
+                <!--<option value="default">Select a value..</option>-->
+                <!--<option *ngFor="let lang of languages">-->
+                    <!--{{ lang }}-->
+                <!--</option>-->
+            <!--</select>-->
+            <!--</div>-->
+
+            <!--<button class="btn btn-primary" type="submit" [disabled]="form.invalid">Ok</button>-->
+            <!--</form>-->
+
+            <!--{{ form.pristine }}-->
+
+            <!--<br>-->
+
+            <!--<div class="col-xs-12 col-12 col-md-4 form-group">-->
+            <!--<input type="text"-->
+            <!--placeholder="Datepicker"-->
+            <!--class="form-control"-->
+            <!--bsDatepicker-->
+            <!--[bsConfig]="config"-->
+            <!--[(ngModel)]="selectedDate">-->
+            <!--</div>-->
+
+            <!--<timepicker></timepicker>-->
+            <!--<h3>{{selectedDate}}</h3>-->
+
+            <!--<form (ngSubmit)="save()" #mySubmitForm='ngForm' (click)="dumpVar(mySubmitForm)">-->
+            <!--<input type="text" placeholder="My input" [(ngModel)]="inputValue" class="form-control" name="myInput" #myInputVar='ngModel' (click)="dumpVar(myInputVar)">-->
+            <!--<button type="submit">Submit</button>-->
+            <!--</form>-->
+
+            <!---------------- reactive forms -------------->
+
+            <form (ngSubmit)="save()" [formGroup]="customersForm">
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="firstNameInput">First Name</label>
+                        <input id="firstNameInput" type="text" required formControlName="firstName">
+                        <span style="color: red;"
+                              *ngIf="customersForm.get('firstName').invalid && customersForm.get('firstName').touched">
+                            Please enter first name
+                        </span>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="lastNameInput">Last Name</label>
+                        <input id="lastNameInput" type="text" formControlName="lastName">
+                    </div>
+
+                    <div class="form-control" [ngClass]="{'has-error': emailMessage}">
+                        <label for="emailInput">Email</label>
+                        <input id="emailInput" type="email" formControlName="email">
+                        {{emailMessage}}
+                    </div>
+
+                    <div class="form-control">
+                        <label for="checkboxInput">Send Catalogue</label>
+                        <input id="checkboxInput" type="checkbox" formControlName="sendCatalogue">
+                    </div>
+
+
+                    <div class="form-control">
+                        <label class="radio-inline">
+                            <input type="radio" formControlName="notification" value="email">
+                            Email
+                        </label>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="radio-inline">
+                            <input type="radio" formControlName="notification" value="sms">
+                            SMS
+                        </label>
+                    </div>
+
+
+                </div>
+
+                <button type="submit" [disabled]="customersForm.get('firstName').valid"></button>
+            </form>
+
+            <p>
+                dirty: {{ customersForm.dirty}}
+            </p>
+            <p>
+                Valid: {{ customersForm.valid}}
+            </p>
+            <p>
+                touched: {{ customersForm.touched}}
+            </p>
+
+            <p>
+                value: {{customersForm.value | json}}
+            </p>
+
+        </div>
+    </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
 <router-outlet></router-outlet>
